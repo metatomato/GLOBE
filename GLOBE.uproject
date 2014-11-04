@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5C10F7F0-1749-E33D-4FCF-4D8C57B24A79",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "GLOBE",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
