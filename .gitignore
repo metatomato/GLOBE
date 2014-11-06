@@ -1,9 +1,15 @@
+#Unreal files
+.xcodeproj
+.sdf
+.sln
+.suo
+
+#Unreal folders
 /Intermediate
 /Binaries
 /Saved
 /DerivedCacheData
-/GLOBE.xcodeproj
-/GLOBE_IOS.xcodeproj
+/*.xcodeproj
 /PackagedGames
 /Build
 /DerivedDataCache

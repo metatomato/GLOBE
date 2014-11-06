@@ -11,3 +11,6 @@ AGLOBEGameMode::AGLOBEGameMode(const class FPostConstructInitializeProperties& P
 }
 
 
+void AGLOBEGameMode::BeginPlay(){
+	UE_LOG(LogTemp, Warning, TEXT("Welcome to M$, metatomato... Shame on you!"));
+} 
