@@ -1,8 +1,9 @@
 #Unreal files
-.xcodeproj
-.sdf
-.sln
-.suo
+*.xcodeproj
+*.sdf
+*.sln
+*.suo
+*.opensdf
 
 #Unreal folders
 /Intermediate
