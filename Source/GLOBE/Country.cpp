@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 EpicGames. All rights reserved.
 //
 
-#include "FLAG3D.h"
+#include "GLOBE.h"
 #include "Country.h"
 
 
