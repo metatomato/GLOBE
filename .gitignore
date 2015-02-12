@@ -4,6 +4,7 @@
 *.sln
 *.suo
 *.opensdf
+*.DS_Store
 
 #Unreal folders
 /Intermediate
