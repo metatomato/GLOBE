@@ -1,6 +1,6 @@
 //
 //  CountryHelper.h
-//  FLAG3D
+//  GLOBE
 //
 //  Created by Jonathan Boucher on 22/05/14.
 //  Copyright (c) 2014 EpicGames. All rights reserved.

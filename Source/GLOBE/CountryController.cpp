@@ -16,13 +16,32 @@ UCountryController::UCountryController(const class FPostConstructInitializePrope
 
 
 
-UCountryController* UCountryController::CreateCountryController(FString JsonString)
+UCountryController* UCountryController::CreateCountryController(FString JsonStringCountry, FString JsonStringRegion)
 {
     CountryControllerInstance = NewObject<UCountryController>();
     
     if( CountryControllerInstance )
     {
-        CountryControllerInstance->InitializeCountries(JsonString);
+		if (!JsonStringCountry.IsEmpty())
+		{
+			CountryControllerInstance->InitializeCountries(JsonStringCountry);
+
+			CountryControllerInstance->SetRegion(TEXT("World"));
+
+			if (!JsonStringRegion.IsEmpty())
+			{
+				CountryControllerInstance->InitializeRegions(JsonStringRegion);
+			}
+			else
+			{
+				UE_LOG(LogTemp, Error, TEXT("[UCountryController][CreateCountryController] Bad JsonStringRegion!"));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("[UCountryController][CreateCountryController] Bad CountryJsonStringCountry!"));
+		}
+			
         return CountryControllerInstance;
     }
     else
@@ -40,12 +59,16 @@ void UCountryController::InitializeCountries(FString JsonString)
    
     if( CountryData.IsValid() )
     {
-        CountryData->Values.GenerateKeyArray(CountryKeys);
-        
-        GenerateRandomList(CountryDraw);
+        CountryData->Values.GenerateKeyArray(CountryKeys);               
     }
     else
         UE_LOG(LogTemp,Error,TEXT("[UCountryController][CreateCountryController] CountryController could not be initialized!"));
+}
+
+
+void UCountryController::InitializeRegions(FString JsonString)
+{
+	RegionData = UDataToolkit::GetJsonObjectFromString(JsonString);
 }
 
 
@@ -57,19 +80,26 @@ void UCountryController::InitDraw(int32 DrawNum)
 
 int32 UCountryController::Num()
 {
-    if( CountryData.IsValid() )
-    {
-        return CountryData->Values.Num();
-    }
-    else
-        return 0;
+	return RegionKeys.Num();
+	
+}
+
+int32 UCountryController::WorldNum()
+{	
+	if( CountryData.IsValid() )
+	{
+	return CountryData->Values.Num();
+	}
+
+	else
+	return 0;
 }
 
 
 FCountry UCountryController::GetCountryByIndex(int32 index)
 {
     FCountry Country;
-    if(index < Num() )
+	if (index < WorldNum())
     {
         TSharedPtr<FJsonObject> JsonObject = CountryData->Values.FindRef(CountryKeys[index])->AsObject();
        Country = CountryHelper::ExtractCountry( JsonObject );
@@ -135,16 +165,49 @@ int32 UCountryController::GetCountryPositionByKey(FString CountryKey)
 }
 
 
+FRegion UCountryController::GetRegion(FString RegionKey)
+{
+	TSharedPtr<FJsonObject> JsonRegion = RegionData->Values.FindRef(RegionKey)->AsObject();
+	return RegionHelper::ExtractRegion(JsonRegion);
+}
+
+
+void UCountryController::SetRegion(FString Region)
+{
+	bool RegionInit = false;
+
+	if (Region.Compare(TEXT("World"))== 0 )
+	{
+		RegionKeys = CountryKeys;
+		RegionInit = true;
+	}	
+	else if(RegionData->HasField(Region))
+	{				
+		RegionKeys = RegionHelper::ExtractRegion(RegionData->GetObjectField(Region)).RegionCodes;				
+		RegionInit = true;
+	}
+	if (RegionInit)
+	{
+		CurrentRegion = Region;
+		UE_LOG(LogTemp, Warning, TEXT("[UCountryController][SetRegion] Region set to %s. Success!"), *Region);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[UCountryController][SetRegion] No Region %s found in DataBase!"), *Region);
+	}	
+}
+
+
 FString UCountryController::Step()
 {
     CurrentCountryIdx = RandomList.Pop();
-    if(CurrentCountryIdx >= CountryKeys.Num())
+    if(CurrentCountryIdx >= Num())
     {
         UE_LOG(LogTemp, Error, TEXT("Index was out of bound!") );
         return FString();
     }
     else
-        return CountryKeys[CurrentCountryIdx];
+		return RegionKeys[CurrentCountryIdx];
 }
 
 
@@ -181,31 +244,31 @@ int32 UCountryController::GetCountriesLeft()
 
 int32 UCountryController::GetStepNum()
 {
-    return CountryKeys.Num() - RandomList.Num();
+    return RegionKeys.Num() - RandomList.Num();
 }
 
 
-TArray<FString> UCountryController::GenerateAnswerIndices(int32 UpperBound)
+TArray<int32> UCountryController::GenerateDrawIndices(int32 UpperBound)
 {
-    //Generate 4 random country indices
+	//Generate 4 random country indices
 	TArray<int32> indices;
-    indices.SetNum(4);
+	indices.SetNum(4);
 	bool	notfound = true;
-    
-	for(int32 i = 0 ; i < 4 ; i++)
+
+	for (int32 i = 0; i < 4; i++)
 	{
-		int32 random = FMath::RandRange( 0, UpperBound - 1);
-        
+		int32 random = FMath::RandRange(0, UpperBound - 1);
+
 		indices[i] = random;
-        
-		while(notfound)
+
+		while (notfound)
 		{
-			for(int32 j = 0 ; j <= i ; j++)
+			for (int32 j = 0; j <= i; j++)
 			{
-				if(indices[j] == random && j != i)
+				if (indices[j] == random && j != i)
 				{
-					random = FMath::RandRange( 0, UpperBound - 1);
-					j = -1 ;
+					random = FMath::RandRange(0, UpperBound - 1);
+					j = -1;
 				}
 				else
 				{
@@ -216,36 +279,50 @@ TArray<FString> UCountryController::GenerateAnswerIndices(int32 UpperBound)
 		}
 		notfound = true;
 	}
-    //Generate random position in returned vector for the current country index
+	//Generate random position in returned vector for the current country index
 	int32 random = FMath::RandRange(0, 3);
 	bool alreadyDrawn = false;
-    
-	for(int32 i = 0 ; i < 4 ; i++)
+
+	for (int32 i = 0; i < 4; i++)
 	{
-		if( CurrentCountryIdx == indices[i] )
+		if (CurrentCountryIdx == indices[i])
 			alreadyDrawn = true;
 	}
-    
-	if(!alreadyDrawn)
-        indices[random] = CurrentCountryIdx;
-    
-    TArray<FString> CountryRef;
-    int32 counter = 0;
+
+	if (!alreadyDrawn)
+		indices[random] = CurrentCountryIdx;
+
+	return indices;
+}
+
+
+TArray<FString> UCountryController::GenerateAnswerIndices(int32 UpperBound)
+{
+	TArray <int32> indices = GenerateDrawIndices(UpperBound);
+    TArray<FString> CountryRef;    
     for(auto i : indices)
     {
-        CountryRef.Add(CountryKeys[i]);
-
-        if(counter == random)
-        {
-            UE_LOG(LogTemp, Error, TEXT("Random Index %s (current : %d)"),  *CountryKeys[i], CurrentCountryIdx);
-        }
-        else
-        {
-            UE_LOG(LogTemp, Error, TEXT("Random Index %s (%d)"),  *CountryKeys[i], i);
-        }
-        counter++;
+		//CountryRef.Add(CountryKeys[i]);
+		CountryRef.Add(GetRegionKey(i));
     }
     return CountryRef;
+}
+
+
+
+FString UCountryController::GetRegionKey(int32 Index)
+{
+	if (Index < RegionKeys.Num())
+	{
+		return RegionKeys[Index];
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[UCOuntryColtroller][GetRegionKey] Index %d Out-Of-Bound of RegionKeys"), Index);
+
+		return "";
+	}
+	
 }
 
 
@@ -266,8 +343,6 @@ void UCountryController::SaveCountryKeysToFile(FString FileName)
      }
      USystemToolkit::SaveStringToFile(KeyList, TEXT("CountryKeys") );
 }
-
-
 
 
 

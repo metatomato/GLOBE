@@ -9,7 +9,9 @@
 #pragma once
 
 #include "Country.h"
+#include "Region.h"
 #include "CountryHelper.h"
+#include "RegionHelper.h"
 #include "CountryController.generated.h"
 
 
@@ -31,16 +33,25 @@ public:
               meta = (FriendlyName = "CreateCountryController", CompactNodeTitle = "CREATE", Keywords = "country create"),
               Category = iGLou_Country)
     
-    static UCountryController* CreateCountryController(FString JsonString);
+			  static UCountryController* CreateCountryController(FString JsonStringCountry, FString JsonStringRegion = "");
     
     
     /**
-	 * Generate a random array of integers, length equals the countries number.
+	 * Create Country Data (Key(String)/Value(FJsonObject))
      *
      * @param   JsonString      A string containing the whole countries data, Json formatted.
      *
 	 */
     void InitializeCountries(FString JsonString);
+
+
+	/**
+	* Create Region Country Keys 
+	*
+	* @param   JsonString      A string containing the regions data, Json formatted.
+	*
+	*/
+	void InitializeRegions(FString JsonString);
     
     
     /**
@@ -68,6 +79,19 @@ public:
     
     int32 Num();
     
+
+	/**
+	* Get the number of countries.
+	*
+	* @returns  The number of countries.
+	*
+	*/
+	UFUNCTION(BlueprintCallable,
+		meta = (FriendlyName = "WorldNum", Keywords = "world country number count total"),
+		Category = iGLou_Country)
+
+	int32 WorldNum();
+
     /**
 	 * Generate a random draw of four country indices with current country in.
      *
@@ -81,6 +105,16 @@ public:
     
     TArray<FString> GenerateAnswerIndices(int32 UpperBound);
     
+
+	/**
+	* Generate a random draw of four country indices with current country in.
+	*
+	* @param   UpperBound      The upper bound form random draw.
+	* @returns                 The random interger array (4 integers), each ranges between 0 and countries numbers.
+	*
+	*/
+	TArray<int32> GenerateDrawIndices(int32 UpperBound);
+
     /**
 	 * Step forward, removing an entry in the RandomList.
      *
@@ -159,6 +193,34 @@ public:
     
     int32 GetCountryPositionByKey(FString CountryKey);
     
+
+	/**
+	* Get the Country position in CountryKeys.
+	*
+	* @param   Country    Corresponding country key for position query.
+	* @returns             The position for the country.
+	*
+	*/
+	UFUNCTION(BlueprintCallable,
+		meta = (FriendlyName = "GetRegion", Keywords = "region get"),
+		Category = iGLou_Country)
+
+		FRegion GetRegion(FString RegionKey);
+
+
+	/**
+	* Set the current region
+	*
+	* @param             The name of the region.
+	*
+	*/
+	UFUNCTION(BlueprintCallable,
+		meta = (FriendlyName = "SetRegion", Keywords = "country step num"),
+		Category = iGLou_Country)
+
+		void SetRegion(FString Region);
+
+
     /**
 	 * Get The Number Of Countries Left.
      *
@@ -171,6 +233,7 @@ public:
     
     int32 GetCountriesLeft();
     
+
     /**
 	 * Get The Number Of Steps Done.
      *
@@ -183,6 +246,17 @@ public:
     
     int32 GetStepNum();
     
+
+	
+	/**
+	* Get country key in the current region by index.
+	*
+	* @returns             The country key at index.
+	*
+	*/
+	FString GetRegionKey(int32 Index);
+
+
 private:
     /**
 	 * Generate a random array of integers, length equals the countries number.
@@ -204,12 +278,18 @@ private:
     TArray<FString>      CountryAnswers;
     //Current Country Idx
     int32                CurrentCountryIdx = -1;
+	//Current Region
+	FString				 CurrentRegion = "";
     
     
     //KeyValues of the country in the Country Map (FJsonObject->Values)
     TArray<FString>         CountryKeys;
     //Whole Country data contained in a FJsonObject
     TSharedPtr<FJsonObject> CountryData;
+	//KeyValues of the country in the Region
+	TArray<FString>         RegionKeys;
+	//Whole Region data contained in a FJsonObject
+	TSharedPtr<FJsonObject> RegionData;
     
     //Pointer to the instance of CountryController
     static UCountryController* CountryControllerInstance;

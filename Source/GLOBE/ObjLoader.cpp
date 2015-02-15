@@ -45,7 +45,7 @@ TArray<FVector> UObjLoader::ExtractObjVertices(FString ObjData)
 TArray<FVector> UObjLoader::ExtractFbxVertices(FString ObjData)
 {
     TArray<FVector> Vectors = TArray<FVector>();
-    TArray<Float32> Positions = TArray<Float32>();
+    TArray<float> Positions = TArray<float>();
     TArray<FString>* Lines = new TArray<FString>();
     TArray<FString>* Sublines = new TArray<FString>();
     TArray<FString> Datalines = TArray<FString>();
@@ -81,7 +81,7 @@ TArray<FVector> UObjLoader::ExtractFbxVertices(FString ObjData)
     
     FVector Vector = FVector();
     
-    for(Float32 Pos : Positions)
+    for(float Pos : Positions)
     {
         int32 idx = Count%3;
         Vector[idx] = Positions[Count];
