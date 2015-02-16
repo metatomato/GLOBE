@@ -3,8 +3,7 @@
 		"Name" : "UE",
 		"Names" : {
 			"fr" : "Europe",
-			"en" : "Europe",
-			"us" : "Europe"
+			"en" : "Europe"
 		},					
 		"CountryCodes" : [
 			"AD",
@@ -55,6 +54,58 @@
 			"SM",
 			"UA",
 			"VA"
+		]
+	},
+	"Asia" : {
+		"Name" : "AS",
+		"Names" : {
+			"fr" : "Asie",
+			"en" : "Asia"
+		},					
+		"CountryCodes" : [
+			"AF",
+			"BH",
+			"BD",
+			"BT",
+			"BN",
+			"MM",
+			"KH",
+			"CN",
+			"HK",
+			"IN",
+			"ID",
+			"IR",
+			"IQ",
+			"IL",
+			"JP",
+			"JO",
+			"KZ",
+			"KP",
+			"KR",
+			"KW",
+			"KG",
+			"LA",
+			"LB",
+			"PH",
+			"MY",
+			"MV",
+			"MN",
+			"NP",
+			"OM",
+			"PK",
+			"QA",
+			"SA",
+			"SG",
+			"LK",
+			"SY",
+			"TW",
+			"TJ",
+			"TH",
+			"TL",
+			"TM",
+			"AE",
+			"VN",
+			"YE"									
 		]
 	}
 }
