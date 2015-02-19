@@ -68,9 +68,9 @@ public:
     
     
     /**
-	 * Get the number of countries.
+	 * Get the number of countries in current Region.
      *
-     * @returns  The number of countries.
+     * @returns  The number of countries in current Region.
      *
 	 */
 	UFUNCTION(BlueprintCallable,
@@ -81,9 +81,9 @@ public:
     
 
 	/**
-	* Get the number of countries.
+	* Get the number of total countries.
 	*
-	* @returns  The number of countries.
+	* @returns  The number of total countries.
 	*
 	*/
 	UFUNCTION(BlueprintCallable,
