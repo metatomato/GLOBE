@@ -35,7 +35,7 @@ TArray<FString> RegionHelper::ExtractCountryCodes(TSharedPtr<FJsonValue> JsonCou
 		for (auto JsonValue : JsonCountryCodes->AsArray())
 		{
 			CountryCodes.Add(JsonValue->AsString());
-			UE_LOG(LogTemp, Warning, TEXT(" %s"), *(JsonValue->AsString()));
+			//UE_LOG(LogTemp, Warning, TEXT(" %s"), *(JsonValue->AsString()));
 		}
 	}
 
