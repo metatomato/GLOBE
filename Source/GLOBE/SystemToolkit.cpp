@@ -58,13 +58,13 @@ FString USystemToolkit::GetStringFromFile(FString File)
     if ( ! FPlatformFileManager::Get().GetPlatformFile().FileExists( *FullPath))
     {
         UE_LOG(LogTemp,Error,TEXT("Could Not Find File"));
-GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("File NOT FOUND!") );
+        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("File NOT FOUND!") );
         return FString(TEXT(""));
     }
     else
     {
         UE_LOG(LogTemp,Error,TEXT("%s FOUND!") , *File);
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("File FOUND!") );
+        //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("File FOUND!") );
     }
     
     
