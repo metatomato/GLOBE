@@ -26,11 +26,10 @@ UCountryController* UCountryController::CreateCountryController(FString JsonStri
 		{
 			CountryControllerInstance->InitializeCountries(JsonStringCountry);
 
-			CountryControllerInstance->SetRegion(TEXT("World"));
-
 			if (!JsonStringRegion.IsEmpty())
 			{
 				CountryControllerInstance->InitializeRegions(JsonStringRegion);
+                CountryControllerInstance->SetRegion(TEXT("World"));
 			}
 			else
 			{
@@ -85,14 +84,8 @@ int32 UCountryController::Num()
 }
 
 int32 UCountryController::WorldNum()
-{	
-	if( CountryData.IsValid() )
-	{
-	return CountryData->Values.Num();
-	}
-
-	else
-	return 0;
+{
+	return WorldCount;
 }
 
 
@@ -178,7 +171,16 @@ void UCountryController::SetRegion(FString Region)
 
 	if (Region.Compare(TEXT("World"))== 0 )
 	{
-		RegionKeys = CountryKeys;
+        TArray<FString> Keys;
+        for(auto ref : RegionData->Values)
+        {
+            TArray<FString> tempKeys = RegionHelper::ExtractRegion(RegionData->GetObjectField(ref.Key)).RegionCodes;;
+            Keys.Append(tempKeys);
+            UE_LOG(LogTemp, Warning, TEXT("REGION ADDED TO WORLD: %s"),*(ref.Key));
+        }
+        WorldCount = Keys.Num();
+        RegionKeys = Keys;
+        //RegionKeys = CountryKeys;
 		RegionInit = true;
 	}	
 	else if(RegionData->HasField(Region))
@@ -333,7 +335,7 @@ void UCountryController::SaveCountryKeysToFile(FString FileName)
      FString KeyList;
      for(auto k : CountryKeys)
      {
-     if(counter < CountryDraw)
+     if(counter < WorldCount)
      {
      KeyList += TEXT("\n");
      KeyList += k;

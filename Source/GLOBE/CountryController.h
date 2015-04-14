@@ -271,7 +271,7 @@ private:
 
 private:
     //Country maximum draw
-    int32 CountryDraw = 249;
+    int32 WorldCount = 0;
     //Array of random integers ranged between 0 and country nunmber
     TArray<int32>        RandomList;
     //Last random draw indices
