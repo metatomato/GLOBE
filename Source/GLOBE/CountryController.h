@@ -64,7 +64,7 @@ public:
               meta = (FriendlyName = "InitCountryDraw", Keywords = "country Init Draw"),
               Category = iGLou_Country)
     
-    void InitDraw(int32 DrawNum);
+    void InitDraw(int32 DrawNum, bool randomize);
     
     
     /**
@@ -103,7 +103,7 @@ public:
               meta = (FriendlyName = "GenerateAnswerIndices", Keywords = "country random indices"),
               Category = iGLou_Country)
     
-    TArray<FString> GenerateAnswerIndices(int32 UpperBound);
+    TArray<FString> GenerateAnswerIndices(int32 UpperBound, bool Randomize);
     
 
 	/**
@@ -113,7 +113,7 @@ public:
 	* @returns                 The random interger array (4 integers), each ranges between 0 and countries numbers.
 	*
 	*/
-	TArray<int32> GenerateDrawIndices(int32 UpperBound);
+	TArray<int32> GenerateDrawIndices(int32 UpperBound, bool randomize);
 
     /**
 	 * Step forward, removing an entry in the RandomList.
@@ -265,7 +265,7 @@ private:
      * @returns             The random interger array, each ranges between 0 and Size parameter.
      *
 	 */
-    void GenerateRandomList(int32 Size);
+    void GenerateRandomList(int32 Size, bool randomize);
     
     void SaveCountryKeysToFile(FString FileName);
 

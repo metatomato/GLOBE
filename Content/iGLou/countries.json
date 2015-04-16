@@ -18561,8 +18561,8 @@
             },
             "CountryCodes" : {
                 "fips" : "SU",
-                "iso2" : "SSD",
-                "iso3" : "SDN",
+                "iso2" : "SS",
+                "iso3" : "SSD",
                 "isoN" : 728,
                 "tld" : "ss"
             },

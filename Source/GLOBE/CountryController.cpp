@@ -71,9 +71,9 @@ void UCountryController::InitializeRegions(FString JsonString)
 }
 
 
-void UCountryController::InitDraw(int32 DrawNum)
+void UCountryController::InitDraw(int32 DrawNum, bool randomize)
 {
-    GenerateRandomList(DrawNum);
+    GenerateRandomList(DrawNum,randomize);
 }
 
 
@@ -213,7 +213,7 @@ FString UCountryController::Step()
 }
 
 
-void UCountryController::GenerateRandomList(int32 Size)
+void UCountryController::GenerateRandomList(int32 Size, bool randomize)
 {
     RandomList.Empty();
     
@@ -224,17 +224,22 @@ void UCountryController::GenerateRandomList(int32 Size)
         idxList.Add(i);
     }
     
-	for(int32 i = 0 ; i <  Size ; i++)
-	{
-        
-		int32 randomIdx = FMath::RandRange( 0, idxList.Num() - 1);
-        
-		int32 value = idxList[randomIdx];
-        
-		RandomList.Add(value);
-        
-        idxList.RemoveAt(randomIdx);
-	}
+    if(!randomize) {
+        RandomList = idxList;
+    } else
+    {
+        for(int32 i = 0 ; i <  Size ; i++)
+        {
+            
+            int32 randomIdx = FMath::RandRange( 0, idxList.Num() - 1);
+            
+            int32 value = idxList[randomIdx];
+            
+            RandomList.Add(value);
+            
+            idxList.RemoveAt(randomIdx);
+        }
+    }
 }
 
 
@@ -250,57 +255,66 @@ int32 UCountryController::GetStepNum()
 }
 
 
-TArray<int32> UCountryController::GenerateDrawIndices(int32 UpperBound)
+TArray<int32> UCountryController::GenerateDrawIndices(int32 UpperBound, bool randomize)
 {
 	//Generate 4 random country indices
 	TArray<int32> indices;
 	indices.SetNum(4);
-	bool	notfound = true;
+	bool notfound = true;
+    
+    if(!randomize)
+    {
+        for (int32 i = 0; i < 4; i++)
+        {
+            indices[i] = CurrentCountryIdx;
+        }
+    } else
+    {
+        for (int32 i = 0; i < 4; i++)
+        {
+            int32 random = FMath::RandRange(0, UpperBound - 1);
 
-	for (int32 i = 0; i < 4; i++)
-	{
-		int32 random = FMath::RandRange(0, UpperBound - 1);
+            indices[i] = random;
 
-		indices[i] = random;
+            while (notfound)
+            {
+                for (int32 j = 0; j <= i; j++)
+                {
+                    if (indices[j] == random && j != i)
+                    {
+                        random = FMath::RandRange(0, UpperBound - 1);
+                        j = -1;
+                    }
+                    else
+                    {
+                        notfound = false;
+                        indices[i] = random;
+                    }
+                }
+            }
+            notfound = true;
+        }
+        //Generate random position in returned vector for the current country index
+        int32 random = FMath::RandRange(0, 3);
+        bool alreadyDrawn = false;
 
-		while (notfound)
-		{
-			for (int32 j = 0; j <= i; j++)
-			{
-				if (indices[j] == random && j != i)
-				{
-					random = FMath::RandRange(0, UpperBound - 1);
-					j = -1;
-				}
-				else
-				{
-					notfound = false;
-					indices[i] = random;
-				}
-			}
-		}
-		notfound = true;
-	}
-	//Generate random position in returned vector for the current country index
-	int32 random = FMath::RandRange(0, 3);
-	bool alreadyDrawn = false;
+        for (int32 i = 0; i < 4; i++)
+        {
+            if (CurrentCountryIdx == indices[i])
+                alreadyDrawn = true;
+        }
 
-	for (int32 i = 0; i < 4; i++)
-	{
-		if (CurrentCountryIdx == indices[i])
-			alreadyDrawn = true;
-	}
+        if (!alreadyDrawn)
+            indices[random] = CurrentCountryIdx;
 
-	if (!alreadyDrawn)
-		indices[random] = CurrentCountryIdx;
-
+    }
 	return indices;
 }
 
 
-TArray<FString> UCountryController::GenerateAnswerIndices(int32 UpperBound)
+TArray<FString> UCountryController::GenerateAnswerIndices(int32 UpperBound, bool Randomize)
 {
-	TArray <int32> indices = GenerateDrawIndices(UpperBound);
+	TArray <int32> indices = GenerateDrawIndices(UpperBound, Randomize);
     TArray<FString> CountryRef;    
     for(auto i : indices)
     {
