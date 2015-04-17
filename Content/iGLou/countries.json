@@ -2605,8 +2605,8 @@
             "DLST" : 1,
             "Flg" : 2,
             "GeoPt" : [
-               0,
-               0
+               12.208977,
+               -68.275224
             ],
             "Name" : "Bonaire, Sint Eustatius and Saba",
             "TD" : -3
@@ -2619,8 +2619,8 @@
             "tld" : "bq"
          },
          "GeoPt" : [
-            0,
-            0
+                12.208977,
+                -68.275224
          ],
          "GeoRectangle" : {
             "East" : 0,
@@ -3355,7 +3355,7 @@
             "et" : "Kanada",
             "fa" : "کانادا",
             "fi" : "Kanada",
-            "fr" : "Du Canada",
+            "fr" : "Canada",
             "ga" : "Ceanada",
             "gl" : "Canadá",
             "hi" : "कनाडा",
@@ -4666,8 +4666,8 @@
             "DLST" : 1,
             "Flg" : 2,
             "GeoPt" : [
-               0,
-               0
+               12.195610,
+               -68.990899
             ],
             "Name" : "Willemstad",
             "TD" : -3
@@ -4680,8 +4680,8 @@
             "tld" : "cw"
          },
          "GeoPt" : [
-            0,
-            0
+            12.195610,
+            -68.990899
          ],
          "GeoRectangle" : {
             "East" : 0,
@@ -7087,8 +7087,8 @@
             "DLST" : 1,
             "Flg" : 2,
             "GeoPt" : [
-               0,
-               0
+               3.908828,
+               -53.158985
             ],
             "Name" : "Cayenne",
             "TD" : -3
@@ -7101,8 +7101,8 @@
             "tld" : "gf"
          },
          "GeoPt" : [
-            0,
-            0
+            3.908828,
+            -53.158985
          ],
          "GeoRectangle" : {
             "East" : 0,
@@ -7717,8 +7717,8 @@
             "DLST" : 1,
             "Flg" : 2,
             "GeoPt" : [
-               0,
-               0
+               16.261097,
+               -61.557168
             ],
             "Name" : "Basse-Terre",
             "TD" : -3
@@ -7731,8 +7731,8 @@
             "tld" : "gp"
          },
          "GeoPt" : [
-            0,
-            0
+            16.261097,
+            -61.557168
          ],
          "GeoRectangle" : {
             "East" : 0,
@@ -10069,7 +10069,7 @@
             "et" : "Jordaania",
             "fa" : "اردن",
             "fi" : "Jordan",
-            "fr" : "Jordan",
+            "fr" : "Jordanie",
             "ga" : "Jordan",
             "gl" : "Xordania",
             "hi" : "जॉर्डन",
@@ -10170,7 +10170,7 @@
             "is" : "Japan",
             "it" : "Giappone",
             "iw" : "יפן",
-            "ja" : "日本の",
+            "ja" : "日本",
             "ko" : "일본",
             "lt" : "Japonija",
             "lv" : "Japāna",
@@ -13351,8 +13351,8 @@
             "DLST" : 1,
             "Flg" : 2,
             "GeoPt" : [
-               0,
-               0
+                   14.700109,
+                   -61.013631
             ],
             "Name" : "Martinique",
             "TD" : -3
@@ -13365,8 +13365,8 @@
             "tld" : "mq"
          },
          "GeoPt" : [
-            0,
-            0
+                    14.700109,
+                    -61.013631
          ],
          "GeoRectangle" : {
             "East" : 0,
@@ -18823,8 +18823,8 @@
             "DLST" : 1,
             "Flg" : 2,
             "GeoPt" : [
-               0,
-               0
+                   18.031944,
+                   -63.067778
             ],
             "Name" : "Sint Maarten",
             "TD" : -3
@@ -18837,8 +18837,8 @@
             "tld" : "sx"
          },
          "GeoPt" : [
-            0,
-            0
+            18.031944,
+            -63.067778
          ],
          "GeoRectangle" : {
             "East" : 0,
@@ -20284,7 +20284,7 @@
             "et" : "Tuvalu",
             "fa" : "تووالو",
             "fi" : "Tuvalu",
-            "fr" : "Tuvalu,",
+            "fr" : "Tuvalu",
             "ga" : "Tuvalu",
             "gl" : "Tuvalu",
             "hi" : "टवालू",
