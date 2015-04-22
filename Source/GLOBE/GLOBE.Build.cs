@@ -17,6 +17,11 @@ public class GLOBE : ModuleRules
             PrivateDependencyModuleNames.Add("OnlineSubsystemGooglePlay");
             PrivateDependencyModuleNames.Add("AndroidAdvertising");
          }
+        if (Target.Platform == UnrealTargetPlatform.IOS)
+        {
+            PrivateDependencyModuleNames.Add("OnlineSubsystemIOS");
+            PrivateDependencyModuleNames.Add("IOSAdvertising");
+        }
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
