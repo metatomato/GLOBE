@@ -4860,8 +4860,8 @@
             "tld" : "cy"
          },
          "GeoPt" : [
-            35,
-            33
+            35.001188,
+            33.260136
          ],
          "GeoRectangle" : {
             "East" : 34.5979232788,
@@ -6291,8 +6291,8 @@
             "tld" : "fj"
          },
          "GeoPt" : [
-            -18,
-            175
+            -17.837800,
+            177.988578
          ],
          "GeoRectangle" : {
             "East" : -178.424453735,
@@ -16317,8 +16317,8 @@
             "tld" : "ps"
          },
          "GeoPt" : [
-            31.25,
-            34.2
+            31.950847,
+            35.303381
          ],
          "GeoRectangle" : {
             "East" : 35.573299408,
@@ -18586,13 +18586,13 @@
                 "cs" : "Republic of South Sudan",
                 "cy" : "Republic of South Sudan",
                 "da" : "Republic of South Sudan",
-                "de" : "Republic of South Sudan",
-                "el" : "Republic of South Sudan",
-                "es" : "Republic of South Sudan",
+                "de" : "Die Republik Südsudan",
+                "el" : "Η Δημοκρατία του Νοτίου Σουδάν",
+                "es" : "La República de Sudán del Sur",
                 "et" : "Republic of South Sudan",
                 "fa" : "Republic of South Sudan",
                 "fi" : "Republic of South Sudan",
-                "fr" : "Republic of South Sudan",
+                "fr" : "République du Soudan du Sud",
                 "ga" : "Republic of South Sudan",
                 "gl" : "Republic of South Sudan",
                 "hi" : "Republic of South Sudan",
@@ -18603,19 +18603,19 @@
                 "is" : "Republic of South Sudan",
                 "it" : "Republic of South Sudan",
                 "iw" : "Republic of South Sudan",
-                "ja" : "Republic of South Sudan",
-                "ko" : "Republic of South Sudan",
+                "ja" : "南スーダンの国章",
+                "ko" : "남 수단 공화국",
                 "lt" : "Republic of South Sudan",
                 "lv" : "Republic of South Sudan",
                 "mk" : "Republic of South Sudan",
                 "ms" : "Republic of South Sudan",
                 "mt" : "Republic of South Sudan",
-                "nl" : "Republic of South Sudan",
+                "nl" : "De Republiek van Zuid-Soedan",
                 "no" : "Republic of South Sudan",
-                "pl" : "Republic of South Sudan",
-                "pt" : "Republic of South Sudan",
+                "pl" : "Republika Sudanu Południowego",
+                "pt" : "A República do Sudão do Sul",
                 "ro" : "Republic of South Sudan",
-                "ru" : "Republic of South Sudan",
+                "ru" : "Республика Южный Судан",
                 "sk" : "Republic of South Sudan",
                 "sl" : "Republic of South Sudan",
                 "sq" : "Republic of South Sudan",
@@ -18628,8 +18628,8 @@
                 "uk" : "Republic of South Sudan",
                 "vi" : "Republic of South Sudan",
                 "yi" : "Republic of South Sudan",
-                "zh" : "Republic of South Sudan",
-                "zh-TW" : "Republic of South Sudan"
+                "zh" : "南蘇丹共和國",
+                "zh-TW" : "南蘇丹共和國"
             },
             "Notes" : null,
             "SeqID" : 190,
